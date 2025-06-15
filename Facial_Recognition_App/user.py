@@ -297,9 +297,9 @@ class User:
                 self.var_sem.get(),
                 self.studentID_entry.get(),
                 self.studentname_entry.get(),
-                self.studentclass_entry.get(),
+                self.var_studentdiv.get(),
                 self.studentroll_entry.get(),
-                self.studentgender_entry.get(),
+                self.var_studentgender.get(),
                 self.studentdob_entry.get(),
                 self.studentmail_entry.get(),
                 self.studentph_entry.get(),
@@ -311,7 +311,7 @@ class User:
              
                 self.fetch_data()
                 conn.close()
-                messagebox.showinfo("Success", "Student details have been added successfully")
+                messagebox.showinfo("Success", "Student details have been added successfully",parent = self.root )
             except Exception as e:
                 messagebox.showerror("Error", f"Due to: {str(e)}", parent=self.root)
     #fetching data
