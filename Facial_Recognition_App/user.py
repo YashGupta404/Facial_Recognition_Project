@@ -3,6 +3,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk 
 from tkinter import messagebox
 import mysql.connector
+import cv2
 
 
 class User:
@@ -200,7 +201,7 @@ class User:
         take_photo_btn=Button(btn_frame1, text="Take Photo Sample", width=35, font=("times new roman", 13, "bold"), bg="blue", fg="white")
         take_photo_btn.grid(row=0,column=0)
 
-        update_photo_btn=Button(btn_frame1, text="Update Photo Sample", width=35, font=("times new roman", 13, "bold"), bg="blue", fg="white")
+        update_photo_btn=Button(btn_frame1, command=self.generate_dataset, text="Update Photo Sample", width=35, font=("times new roman", 13, "bold"), bg="blue", fg="white")
         update_photo_btn.grid(row=0,column=1)
 
         #right label frame
@@ -436,9 +437,87 @@ class User:
         self.var_studentaddress.set("")
         self.var_studentteacher.set("")
         self.var_radio1.set("")
-
-
-
+        
+    
+    # ===========================Generate Dataset or Take Photo Sample=================================
+    
+    def generate_dataset(self):
+        if self.studentID_entry.get()=="" or self.studentname_entry.get()=="" or self.var_dep.get()=="Select Department" or self.var_course.get()=="Select Course" or self.var_year.get()=="Select Year" or self.var_sem.get()=="Select Semester":
+            messagebox.showerror("Error", "All fields are required", parent=self.root)
+        else:
+            try:
+                
+                conn = mysql.connector.connect(
+                    host="localhost",
+                    user="root",
+                    password="Ritikantjuhi@1234",
+                    database="face_recognizer"
+                )
+                my_cursor = conn.cursor()
+                my_cursor.execute("select * from user")
+                myresult = my_cursor.fetchall()
+                id = 0
+                for x in myresult:
+                    id += 1
+                my_cursor.execute(
+                    "UPDATE user SET dep=%s, course=%s, year=%s, semester=%s, Name=%s, roll=%s, `div`=%s, gender=%s, email=%s, dob=%s, phone=%s, address=%s, teacher=%s, photosample=%s WHERE ID=%s",
+                    (
+                        self.var_dep.get(),
+                        self.var_course.get(),
+                        self.var_year.get(),
+                        self.var_sem.get(),
+                        self.var_studentname.get(),
+                        
+                        self.var_studentroll.get(),
+                        self.var_studentdiv.get(),
+                        self.var_studentgender.get(),
+                        self.var_studentemail.get(),
+                        self.var_studentdob.get(),
+                      
+                        self.var_studentphone.get(),
+                        self.var_studentaddress.get(),
+                        self.var_studentteacher.get(),
+                        self.var_radio1.get(),
+                        self.var_studentID.get()==id+1 
+                    )
+                )
+                conn.commit()
+                self.fetch_data()
+                self.reset_data()
+                conn.close()
+                
+                #===========================Load predefined data on face frontals from opencv===========================
+                face_classifier = cv2.CascadeClassifier(r"Facial_Recognition_App\haarcascade_frontalface_default.xml")
+                def face_cropped(img):
+                    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+                    faces = face_classifier.detectMultiScale(gray, 1.3, 5)#scaling factor = 1.3 and minimum neighbour =5
+                    for (x, y, w, h) in faces:
+                        face_cropped = img[y:y + h, x:x + w]  # Cropping the detected face
+                        return face_cropped
+                cap= cv2.VideoCapture(0)  # 0 for the default camera
+                img_id = 0
+                while True:
+                    ret, my_frame = cap.read()
+                    if face_cropped(my_frame) is not None:
+                        img_id += 1
+                        face = cv2.resize(face_cropped(my_frame), (450, 450))
+                        face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+                        file_name_path = "Facial_Recognition_App/data/user." + str(id) + "." + str(img_id) + ".jpg"
+                        cv2.imwrite(file_name_path,face)
+                        cv2.putText(face, str(img_id), (50,50), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 255, 0),2)
+                        cv2.imshow("Cropped Face", face)
+                    if cv2.waitKey(1) == 13 or int(img_id) == 100:  # Press Enter to stop capturing
+                        break
+                cap.release()
+                cv2.destroyAllWindows()
+                messagebox.showinfo("Result", "Generating data sets completed successfully")
+            except Exception as es:
+                messagebox.showerror("Error", f"Due to: {str(es)}", parent=self.root)
+                
+                    
+                    
+                
+        
 if __name__ == "__main__":
     root = Tk()
     app = User(root)
