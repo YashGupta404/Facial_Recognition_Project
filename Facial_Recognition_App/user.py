@@ -198,10 +198,10 @@ class User:
         btn_frame1=Frame(cls_frame, bd=2, relief=RIDGE, bg="white")
         btn_frame1.place(x=0,y=235,width=715,height=35)
 
-        take_photo_btn=Button(btn_frame1, text="Take Photo Sample", width=35, font=("times new roman", 13, "bold"), bg="blue", fg="white")
+        take_photo_btn=Button(btn_frame1,command=self.generate_dataset ,text="Take Photo Sample", width=35, font=("times new roman", 13, "bold"), bg="blue", fg="white")
         take_photo_btn.grid(row=0,column=0)
 
-        update_photo_btn=Button(btn_frame1, command=self.generate_dataset, text="Update Photo Sample", width=35, font=("times new roman", 13, "bold"), bg="blue", fg="white")
+        update_photo_btn=Button(btn_frame1, text="Update Photo Sample", width=35, font=("times new roman", 13, "bold"), bg="blue", fg="white")
         update_photo_btn.grid(row=0,column=1)
 
         #right label frame
