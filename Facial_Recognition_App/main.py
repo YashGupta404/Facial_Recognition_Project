@@ -104,6 +104,19 @@ class face_recognition:
                          font=("times new roman",12 , "bold"))
         help_btn_txt.place(x=450, y=600,width=180, height=30)
         
+        #photos face button
+        photo_img = Image.open(r"Facial_Recognition_App\images_face_recog\customer-service.png") 
+        photo_img=photo_img.resize((180, 180), Image.LANCZOS)
+        self.photophoto_img= ImageTk.PhotoImage(photo_img) 
+        photo_btn = Button(self.root, image=self.photophoto_img, cursor = "hand2",
+                        )
+        photo_btn.place(x=200, y=420,width=180, height=180)
+        
+        photo_btn_txt = Button(self.root, text="Photos", cursor = "hand2",
+                         font=("times new roman",12 , "bold"))
+        photo_btn_txt.place(x=200, y=600,width=180, height=30)
+        
+        
         # function for linking the buttons to their respective functionalities
     def user_details(self):
       self.new_window = Toplevel(self.root)
