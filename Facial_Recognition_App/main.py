@@ -2,6 +2,7 @@ from tkinter import* # Importing the tkinter library for GUI applications
 from tkinter import ttk # used for themed widgets
 from PIL import Image, ImageTk # Importing pillow for image handling
 from user import User 
+import os
 
 class face_recognition:
     # Constructor to initialize the main window
@@ -103,6 +104,10 @@ class face_recognition:
         help_btn_txt = Button(self.root, text="Help Desk", cursor = "hand2",
                          font=("times new roman",12 , "bold"))
         help_btn_txt.place(x=450, y=600,width=180, height=30)
+        
+    def open_img(self):
+      os.startfile(r"Facial_Recognition_App\data")
+         
         
         # function for linking the buttons to their respective functionalities
     def user_details(self):
