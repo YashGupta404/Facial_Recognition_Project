@@ -74,7 +74,7 @@ class face_recognition:
         train_img = Image.open(r"Facial_Recognition_App\images_face_recog\data-warehouse.png") 
         train_img = train_img.resize((180, 180), Image.LANCZOS)
         self.phototrain_img= ImageTk.PhotoImage(train_img) 
-        train_btn = Button(self.root, image=self.phototrain_img, cursor = "hand2",command=self.train_data)
+        train_btn = Button(self.root, image=self.phototrain_img, cursor = "hand2",command=self.train_data,)
         train_btn.place(x=950, y=150,width=180, height=180)
         
         train_btn_txt = Button(self.root, text="Train Data", cursor = "hand2",command=self.train_data,
