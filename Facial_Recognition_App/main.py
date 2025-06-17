@@ -3,6 +3,7 @@ from tkinter import ttk # used for themed widgets
 from PIL import Image, ImageTk # Importing pillow for image handling
 from user import User 
 import os
+from train import Train
 
 class face_recognition:
     # Constructor to initialize the main window
@@ -73,10 +74,10 @@ class face_recognition:
         train_img = Image.open(r"Facial_Recognition_App\images_face_recog\data-warehouse.png") 
         train_img = train_img.resize((180, 180), Image.LANCZOS)
         self.phototrain_img= ImageTk.PhotoImage(train_img) 
-        train_btn = Button(self.root, image=self.phototrain_img, cursor = "hand2",)
+        train_btn = Button(self.root, image=self.phototrain_img, cursor = "hand2",command=self.train_data)
         train_btn.place(x=950, y=150,width=180, height=180)
         
-        train_btn_txt = Button(self.root, text="Train Data", cursor = "hand2",
+        train_btn_txt = Button(self.root, text="Train Data", cursor = "hand2",command=self.train_data,
                          font=("times new roman",12 , "bold"))
         train_btn_txt.place(x=950, y=330,width=180, height=30)
         
@@ -125,6 +126,11 @@ class face_recognition:
     def user_details(self):
       self.new_window = Toplevel(self.root)
       self.new_obj = User(self.new_window)
+    
+    def train_data(self):
+      self.new_window = Toplevel(self.root)
+      self.app = Train(self.new_window)
+      
         
 
 if __name__ == "__main__":
