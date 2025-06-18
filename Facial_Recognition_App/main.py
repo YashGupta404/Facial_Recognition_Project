@@ -5,6 +5,7 @@ from user import User
 import os
 from train import Train
 from face_recognition import Face_Recognition
+from Attendance import Attendance_management
 
 class face_recognition:
     # Constructor to initialize the main window
@@ -82,6 +83,19 @@ class face_recognition:
                          font=("times new roman",12 , "bold"))
         train_btn_txt.place(x=950, y=330,width=180, height=30)
         
+          # Attendance button
+        
+        att_img = Image.open(r"Facial_Recognition_App\images_face_recog\data-warehouse.png") 
+        att_img = att_img.resize((180, 180), Image.LANCZOS)
+        self.photoatt_img= ImageTk.PhotoImage(att_img) 
+        att_btn = Button(self.root, image=self.photoatt_img, cursor = "hand2",command=self.attend_data,)
+        att_btn.place(x=950, y=150,width=180, height=180)
+        
+        att_btn_txt = Button(self.root, text="Attendance", cursor = "hand2",command=self.attend_data,
+                         font=("times new roman",12 , "bold"))
+        att_btn_txt.place(x=950, y=330,width=180, height=30)
+        
+        
         
         #Team
         Team_img = Image.open(r"Facial_Recognition_App\images_face_recog\united.png") 
@@ -135,6 +149,11 @@ class face_recognition:
     def face_data(self):
       self.new_window = Toplevel(self.root)
       self.app = Face_Recognition(self.new_window)  
+    
+    def attend_data(self):
+      self.new_window = Toplevel(self.root)
+      self.app = Attendance_management(self.new_window) 
+      
         
 
 if __name__ == "__main__":
