@@ -60,7 +60,7 @@ class Train:
         clf = cv2.face.LBPHFaceRecognizer_create()  # Create a Local Binary Patterns Histograms (LBPH) face recognizer
         clf.train(faces, ids)  # Train the classifier with the faces and ids
         clf.write("Facial_Recognition_App/classifier.xml")
-        cv2.ALLWindows()  # Close all OpenCV windows
+        
         cv2.destroyAllWindows()  # Destroy all OpenCV windows
         messagebox.showinfo("Result", "Training datasets completed successfully")  # Show a message box indicating success
 
