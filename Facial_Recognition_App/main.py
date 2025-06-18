@@ -4,6 +4,7 @@ from PIL import Image, ImageTk # Importing pillow for image handling
 from user import User 
 import os
 from train import Train
+from face_recognition import Face_Recognition
 
 class face_recognition:
     # Constructor to initialize the main window
@@ -61,11 +62,11 @@ class face_recognition:
         face_img = Image.open(r"Facial_Recognition_App\images_face_recog\face-detection (1).png") 
         face_img = face_img.resize((180, 180), Image.LANCZOS)
         self.photoface_img= ImageTk.PhotoImage(face_img) 
-        face_btn = Button(self.root, image=self.photoface_img, cursor = "hand2",
+        face_btn = Button(self.root, image=self.photoface_img, cursor = "hand2", command=self.face_data
                         )
         face_btn.place(x=450, y=150,width=180, height=180)
         
-        face_btn_txt = Button(self.root, text="Face Recognition", cursor = "hand2",
+        face_btn_txt = Button(self.root, text="Face Recognition", cursor = "hand2", command=self.face_data,
                          font=("times new roman",12 , "bold"))
         face_btn_txt.place(x=450, y=330,width=180, height=30)
         
@@ -130,7 +131,10 @@ class face_recognition:
     def train_data(self):
       self.new_window = Toplevel(self.root)
       self.app = Train(self.new_window)
-      
+
+    def face_data(self):
+      self.new_window = Toplevel(self.root)
+      self.app = Face_Recognition(self.new_window)  
         
 
 if __name__ == "__main__":
