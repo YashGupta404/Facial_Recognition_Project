@@ -7,6 +7,7 @@ from train import Train
 from face_recognition import Face_Recognition
 from Attendance import Attendance_management
 
+
 class face_recognition:
     # Constructor to initialize the main window
     def __init__(self, root): 
