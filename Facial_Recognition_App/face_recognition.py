@@ -40,17 +40,22 @@ class Face_Recognition:
         
     # attendance
     def mark_attendance(self,i,r,n,d):
-        with open(r"Facial_Recognition_App\Attendance.csv","r+",newline="\n") as f:
-            myDataList=f.readlines()
-            name_list=[]
-            for line in myDataList:
-                entry = line.split((","))
-                name_list.append(entry[0])
-            if((i not in name_list) and  (n not in name_list) and (r not in name_list) and  (d not in name_list)):
-                now = datetime.now()
-                d1=now.strftime("%d/%m/%Y")
-                dtString=now.strftime("%H:%M:%S")
-                f.writelines(f"\n{i},{r},{n},{d},{dtString},{d1},Present")
+        try:
+            with open(r"Facial_Recognition_App\Attendance.csv","r+",newline="\n") as f:
+                myDataList=f.readlines()
+        except PermissionError:
+            messagebox.showerror("Error", "Unable to open Attendance file. Please check permissions.")
+            return
+                
+        name_list=[]
+        for line in myDataList:
+            entry = line.split((","))
+            name_list.append(entry[0])
+        if((i not in name_list) and  (n not in name_list) and (r not in name_list) and  (d not in name_list)):
+            now = datetime.now()
+            d1=now.strftime("%d/%m/%Y")
+            dtString=now.strftime("%H:%M:%S")
+            f.writelines(f"\n{i},{r},{n},{d},{dtString},{d1},Present")
                 
                  
             

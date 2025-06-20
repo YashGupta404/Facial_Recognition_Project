@@ -101,7 +101,7 @@ class Attendance_management:
         self.att_combo.grid(row=3, column=1, padx=10, pady=10, sticky=W)
         
         #bbuttons frame
-        btn_frame=Frame(left_inside_frame, bd=2, relief=RIDGE, bg="white")
+        btn_frame=Frame(Left_frame, bd=2, relief=RIDGE, bg="white")
         btn_frame.place(x=0,y=300,width=715,height=35)
 
         save_btn=Button(btn_frame, text="Import csv",command=self.import_csv,width=17, font=("times new roman", 13, "bold"), bg="blue", fg="white")

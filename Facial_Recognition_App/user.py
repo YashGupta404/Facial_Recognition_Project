@@ -332,7 +332,8 @@ class User:
         cursor_focus=self.student_table.focus()
         content = self.student_table.item(cursor_focus)
         data=content["values"]     
-        
+        if not data or len(data)<15:
+            return
         self.var_dep.set(data[0])
         self.var_course.set(data[1])
         self.var_year.set(data[2])

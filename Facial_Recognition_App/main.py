@@ -6,6 +6,8 @@ import os
 from train import Train
 from face_recognition import Face_Recognition
 from Attendance import Attendance_management
+from team import Team
+from help import Help
 
 
 class face_recognition:
@@ -72,7 +74,7 @@ class face_recognition:
                          font=("times new roman",12 , "bold"))
         face_btn_txt.place(x=450, y=330,width=180, height=30)
         
-          # training button
+        # training button
         
         train_img = Image.open(r"Facial_Recognition_App\images_face_recog\data-warehouse.png") 
         train_img = train_img.resize((180, 180), Image.LANCZOS)
@@ -86,15 +88,15 @@ class face_recognition:
         
           # Attendance button
         
-        att_img = Image.open(r"Facial_Recognition_App\images_face_recog\data-warehouse.png") 
+        att_img = Image.open(r"Facial_Recognition_App\images_face_recog\calendar.png") 
         att_img = att_img.resize((180, 180), Image.LANCZOS)
         self.photoatt_img= ImageTk.PhotoImage(att_img) 
         att_btn = Button(self.root, image=self.photoatt_img, cursor = "hand2",command=self.attend_data,)
-        att_btn.place(x=950, y=150,width=180, height=180)
+        att_btn.place(x=950, y=420,width=180, height=180)
         
         att_btn_txt = Button(self.root, text="Attendance", cursor = "hand2",command=self.attend_data,
                          font=("times new roman",12 , "bold"))
-        att_btn_txt.place(x=950, y=330,width=180, height=30)
+        att_btn_txt.place(x=950, y=600,width=180, height=30)
         
         
         
@@ -102,11 +104,11 @@ class face_recognition:
         Team_img = Image.open(r"Facial_Recognition_App\images_face_recog\united.png") 
         Team_img = Team_img.resize((180, 180), Image.LANCZOS)
         self.photoTeam_img= ImageTk.PhotoImage(Team_img) 
-        Team_btn = Button(self.root, image=self.photoTeam_img, cursor = "hand2",
+        Team_btn = Button(self.root, image=self.photoTeam_img, command=self.team_data,cursor = "hand2",
                         )
         Team_btn.place(x=700, y=420,width=180, height=180)
         
-        Team_btn_txt = Button(self.root, text="Team", cursor = "hand2",
+        Team_btn_txt = Button(self.root, text="Team",command=self.team_data, cursor = "hand2",
                          font=("times new roman",12 , "bold"))
         Team_btn_txt.place(x=700, y=600,width=180, height=30)
         
@@ -114,18 +116,18 @@ class face_recognition:
         help_img = Image.open(r"Facial_Recognition_App\images_face_recog\customer-service.png") 
         help_img = help_img.resize((180, 180), Image.LANCZOS)
         self.photohelp_img= ImageTk.PhotoImage(help_img) 
-        help_btn = Button(self.root, image=self.photohelp_img, cursor = "hand2",
+        help_btn = Button(self.root, command=self.help_data,image=self.photohelp_img, cursor = "hand2",
                         )
         help_btn.place(x=450, y=420,width=180, height=180)
         
-        help_btn_txt = Button(self.root, text="Help Desk", cursor = "hand2",
+        help_btn_txt = Button(self.root, text="Help Desk", command=self.help_data,cursor = "hand2",
                          font=("times new roman",12 , "bold"))
         help_btn_txt.place(x=450, y=600,width=180, height=30)
         
         
          
         #photos face button
-        photo_img = Image.open(r"Facial_Recognition_App\images_face_recog\customer-service.png") 
+        photo_img = Image.open(r"Facial_Recognition_App\images_face_recog\photos.png") 
         photo_img=photo_img.resize((180, 180), Image.LANCZOS)
         self.photophoto_img= ImageTk.PhotoImage(photo_img) 
         photo_btn = Button(self.root, image=self.photophoto_img, cursor = "hand2",command = self.open_img
@@ -154,6 +156,14 @@ class face_recognition:
     def attend_data(self):
       self.new_window = Toplevel(self.root)
       self.app = Attendance_management(self.new_window) 
+    
+    def team_data(self):
+      self.new_window = Toplevel(self.root)
+      self.app = Team(self.new_window)
+    
+    def help_data(self):
+      self.new_window = Toplevel(self.root)
+      self.app = Help(self.new_window)
       
         
 
